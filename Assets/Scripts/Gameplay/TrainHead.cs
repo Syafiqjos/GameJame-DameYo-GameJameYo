@@ -5,11 +5,11 @@ using UnityEngine;
 public class TrainHead : MonoBehaviour
 {
     public float trainSpeed;
-    public float minimumMouseDelta = 1.0f;
 
     public GameObject trainFragment;
 
     public TrailRenderer trailRenderer;
+
     public float trailRatio = 0.5f;
     [Range(0,1)]public float trailAddon = 0.5f;
     public int trailIndexDelta = 5;
@@ -27,26 +27,22 @@ public class TrainHead : MonoBehaviour
 
     private void Update()
     {
-        FollowCursor();
+        MovementController();
         FragmentsController();
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
             AddFragment('A');
         }
-    }
+    }    
 
-    void FollowCursor()
+    void MovementController()
     {
-        Vector3 point = cameraV.ScreenToWorldPoint(Input.mousePosition);
-        Vector3 direction = (point - transform.position);
+        Vector2 point = Input.mousePosition;
+        Vector2 centerScreen = new Vector2(Screen.width / 2.0f, Screen.height / 2.0f);
+        Vector2 direction = (point - centerScreen);
 
-        direction.z = 0;
-
-        if (direction.magnitude > minimumMouseDelta)
-        {
-            lastDirection = direction;
-        }
+        lastDirection = direction;
 
         transform.position += lastDirection.normalized * trainSpeed;
     }
