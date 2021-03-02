@@ -11,7 +11,10 @@ public class TrainHead : MonoBehaviour
 
     public TrailRenderer trailRenderer;
     public float trailRatio = 0.5f;
+    [Range(0,1)]public float trailAddon = 0.5f;
     public int trailIndexDelta = 5;
+
+    public string formedWord { get { string x = ""; foreach (var p in fragments) x += p.alphabet; return x; } }
 
     private Camera cameraV;
     private Vector3 lastDirection;
@@ -62,11 +65,13 @@ public class TrainHead : MonoBehaviour
         }
 
         fragments.Add(fragment);
+
+        CheckFormedWord();
     }
 
     private void FragmentsController()
     {
-        trailRenderer.time = fragments.Count * trailRatio;
+        trailRenderer.time = trailAddon + fragments.Count * trailRatio;
 
         for (int i = 0;i < fragments.Count;i++)
         {
@@ -74,6 +79,15 @@ public class TrainHead : MonoBehaviour
             if (ind < trailRenderer.positionCount && ind >= 0)
             {
                 fragments[i].transform.position = trailRenderer.GetPosition(ind);
+            } else
+            {
+                if (i - 1 >= 0)
+                {
+                    fragments[i].transform.position = fragments[i - 1].transform.position;
+                } else
+                {
+                    fragments[i].transform.position = transform.position;
+                }
             }
         }
     }
@@ -83,6 +97,14 @@ public class TrainHead : MonoBehaviour
         if (other.tag == "Fragments")
         {
             Debug.Log("Kill Us");
+        }
+    }
+
+    private void CheckFormedWord()
+    {
+        if (formedWord != string.Empty)
+        {
+
         }
     }
 }

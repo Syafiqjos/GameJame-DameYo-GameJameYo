@@ -53,13 +53,13 @@
     <UnityVersion>2020.2.0f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\MainMenu\MainMenu.cs" />
+    <Compile Include="Assets\Scripts\Gameplay\CameraFollow.cs" />
+    <Compile Include="Assets\Scripts\Gameplay\TrainFragment.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Gameplay\TrainAttachment.cs" />
     <Compile Include="Assets\Scripts\Gameplay\GameplayMaster.cs" />
     <Compile Include="Assets\Scripts\Gameplay\TrainHead.cs" />
-    <Compile Include="Assets\Scripts\Gameplay\TrainFragment.cs" />
-    <Compile Include="Assets\Scripts\Gameplay\CameraFollow.cs" />
-    <Compile Include="Assets\Scripts\Gameplay\TrainAttachment.cs" />
+    <Compile Include="Assets\Scripts\MainMenu\MainMenu.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

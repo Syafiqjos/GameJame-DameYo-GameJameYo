@@ -4,7 +4,14 @@ using UnityEngine;
 
 public class TrainAttachment : MonoBehaviour
 {
-    public char alphabet = 'A';
+    public char alphabet { get; private set; } = 'A';
+
+    public TextMesh text;
+
+    private void Start()
+    {
+        text.text = alphabet.ToString();
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -13,7 +20,7 @@ public class TrainAttachment : MonoBehaviour
             TrainHead head = other.GetComponent<TrainHead>();
             head.AddFragment(alphabet);
 
-            DestroyAttachment();
+            DestroyAttachment(); 
         }
     }
 

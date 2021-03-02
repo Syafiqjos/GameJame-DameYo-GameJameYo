@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class TrainFragment : MonoBehaviour
 {
+    public TextMesh text;
+
+    public char alphabet { get; private set; }
+
     public void Initial(char alphabet)
     {
-        
-    }
-
-    void Update()
-    {
-        
+        this.alphabet = alphabet;
+        text.text = alphabet.ToString();
     }
 }
