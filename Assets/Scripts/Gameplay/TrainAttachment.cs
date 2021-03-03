@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class TrainAttachment : MonoBehaviour
 {
-    public char alphabet { get; private set; } = 'A';
+    public char alphabet { get; private set; } = 'a';
 
     public GameObject graphic;
     public TextMesh text;
     public ParticleSystem particleExplosion;
 
-    private void Start()
+    public void Initial(char alphabet)
     {
-        text.text = alphabet.ToString();
+        this.alphabet = alphabet;
+        text.text = char.ToUpper(alphabet).ToString();
     }
 
     private void OnTriggerEnter2D(Collider2D other)

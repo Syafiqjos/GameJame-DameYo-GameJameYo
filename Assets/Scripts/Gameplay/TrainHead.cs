@@ -32,12 +32,22 @@ public class TrainHead : MonoBehaviour
             MovementController();
             FragmentsController();
 
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                AddFragment('A');
-            }
+            DetachController();
         }
     }    
+
+    void DetachController()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            DetachLastFragment();
+        }
+    }
+
+    private void DetachLastFragment()
+    {
+        fragments.RemoveAt(fragments.Count - 1);
+    }
 
     void MovementController()
     {
@@ -53,6 +63,10 @@ public class TrainHead : MonoBehaviour
     public void AddFragment(char alphabet)
     {
         TrainFragment fragment = Instantiate(trainFragment).GetComponent<TrainFragment>();
+        if (GameplayMaster.Instance)
+        {
+            fragment.transform.parent = GameplayMaster.Instance.trainsParent;
+        }
         fragment.Initial(alphabet);
 
         if (fragments.Count > 0)
@@ -65,7 +79,14 @@ public class TrainHead : MonoBehaviour
 
         fragments.Add(fragment);
 
+        health = true;
+
+        GameplayMaster.AddPoints(1);
         CheckFormedWord();
+
+        if (AttachmentSpawner.Instance) {
+            AttachmentSpawner.Instance.SpawnAttachment(alphabet);
+        }
     }
 
     private void FragmentsController()
@@ -91,12 +112,27 @@ public class TrainHead : MonoBehaviour
         }
     }
 
+    private bool health = false;
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Fragments")
         {
-            //GameplayMaster.isGameOver = true;
-            Debug.Log("Kill Us");
+            if (fragments.Count > 1)
+            {
+                health = false;
+            }
+
+            if (health == false)
+            {
+                GameplayMaster.isGameOver = true;
+                Debug.Log("Kill Us");
+            }
+            health = false;
+
+            other.GetComponent<Collider2D>().enabled = false;
+        } else if (other.tag == "Obstacle")
+        {
+            GameplayMaster.isGameOver = true;
         }
     }
 
@@ -104,7 +140,18 @@ public class TrainHead : MonoBehaviour
     {
         if (formedWord != string.Empty)
         {
-            GameplayMaster.CheckWord(formedWord);
+            Debug.Log(formedWord);
+            if (GameplayMaster.CheckWord(formedWord) > 0)
+            {
+                //Success
+                for (int i = 0;i < fragments.Count; i++)
+                {
+                    TrainFragment frag = fragments[fragments.Count - 1];
+                    fragments.RemoveAt(fragments.Count - 1);
+
+                    Destroy(frag.gameObject);
+                }
+            }
         }
     }
 }

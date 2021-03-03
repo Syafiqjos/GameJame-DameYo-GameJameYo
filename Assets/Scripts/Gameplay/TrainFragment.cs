@@ -11,6 +11,6 @@ public class TrainFragment : MonoBehaviour
     public void Initial(char alphabet)
     {
         this.alphabet = alphabet;
-        text.text = alphabet.ToString();
+        text.text = char.ToUpper(alphabet).ToString();
     }
 }
