@@ -5,6 +5,8 @@ using UnityEngine;
 public class TrainCursor : MonoBehaviour
 {
     public Transform train;
+    public Transform trainHeadGraphic;
+
     public float cursorLength = 2.0f;
 
     private LineRenderer directionRenderer;
@@ -19,7 +21,10 @@ public class TrainCursor : MonoBehaviour
 
     private void Update()
     {
-        PointerController();
+        if (GameplayMaster.isPlaying)
+        {
+            PointerController();
+        }
     }
 
     private void PointerController()
@@ -32,8 +37,12 @@ public class TrainCursor : MonoBehaviour
 
             direction = Vector3.ClampMagnitude(direction, cursorLength);
 
+            Vector3 target = transform.position + direction;
+
             directionRenderer.SetPosition(0, transform.position);
-            directionRenderer.SetPosition(1, transform.position + direction);
+            directionRenderer.SetPosition(1, target);
+
+            trainHeadGraphic.transform.LookAt(target);
         }
     }
 }

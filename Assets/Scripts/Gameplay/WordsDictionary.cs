@@ -5,8 +5,26 @@ using UnityEngine;
 public static class WordsDictionary
 {
     public static List<string> words = new List<string> {
-        "Kadal",
-        "Kucing"
+        "apple",
+        "school",
+        "book",
+        "pencil",
+        "home",
+        "rubber",
+        "bicycle",
+        "swimming",
+        "potatoes",
+        "egg",
+        "family",
+        "friend",
+        "happy",
+        "pineapple",
+        "clouds",
+        "pedicab",
+        "forest",
+        "earth",
+        "monkey",
+        "kangaroo",
     };
 
     public static string GetRandomWord()
