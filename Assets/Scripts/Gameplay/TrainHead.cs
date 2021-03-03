@@ -27,12 +27,15 @@ public class TrainHead : MonoBehaviour
 
     private void Update()
     {
-        MovementController();
-        FragmentsController();
-
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (GameplayMaster.isPlaying)
         {
-            AddFragment('A');
+            MovementController();
+            FragmentsController();
+
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                AddFragment('A');
+            }
         }
     }    
 
@@ -92,6 +95,7 @@ public class TrainHead : MonoBehaviour
     {
         if (other.tag == "Fragments")
         {
+            //GameplayMaster.isGameOver = true;
             Debug.Log("Kill Us");
         }
     }
@@ -100,7 +104,7 @@ public class TrainHead : MonoBehaviour
     {
         if (formedWord != string.Empty)
         {
-
+            GameplayMaster.CheckWord(formedWord);
         }
     }
 }
