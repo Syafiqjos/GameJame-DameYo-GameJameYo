@@ -468,6 +468,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9005488677902463689}
   - component: {fileID: 6309390428863265375}
+  - component: {fileID: 4641689680088490847}
   m_Layer: 0
   m_Name: Main_Kereta_front
   m_TagString: Untagged
@@ -540,3 +541,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &4641689680088490847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8520036947111081072}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69b4d01be0a2d6044b1fa0fcc5993f90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteUp: {fileID: 0}
+  spriteDown: {fileID: 0}
+  spriteRight: {fileID: 0}
+  spriteLeft: {fileID: 0}

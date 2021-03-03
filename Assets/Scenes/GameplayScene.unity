@@ -28601,5 +28601,9 @@ PrefabInstance:
       propertyPath: trailIndexDelta
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 6309390428863265375, guid: 9c7ad2df15ecfac4eab1f2f269785e7f, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9c7ad2df15ecfac4eab1f2f269785e7f, type: 3}
