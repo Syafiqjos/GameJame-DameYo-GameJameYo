@@ -6,7 +6,9 @@ public class TrainAttachment : MonoBehaviour
 {
     public char alphabet { get; private set; } = 'A';
 
+    public GameObject graphic;
     public TextMesh text;
+    public ParticleSystem particleExplosion;
 
     private void Start()
     {
@@ -26,6 +28,16 @@ public class TrainAttachment : MonoBehaviour
 
     public void DestroyAttachment()
     {
+        graphic.SetActive(false);
+        particleExplosion.Play();
+
+        StartCoroutine(DestroyLate());
+    }
+
+    IEnumerator DestroyLate()
+    {
+        yield return new WaitForSeconds(2);
+
         Destroy(gameObject);
     }
 }

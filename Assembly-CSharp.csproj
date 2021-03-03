@@ -61,8 +61,10 @@
     <Compile Include="Assets\Scripts\Gameplay\GameplayMaster.cs" />
     <Compile Include="Assets\Scripts\Gameplay\TrainHead.cs" />
     <Compile Include="Assets\Scripts\MainMenu\MainMenu.cs" />
+    <Compile Include="Assets\Scripts\Gameplay\WordsDictionary.cs" />
   </ItemGroup>
   <ItemGroup>
+     <None Include="Assets\Arts\DummyTxt.txt" />
     <Reference Include="UnityEngine">
       <HintPath>D:\Software\Unity2020.2\Unity\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>
