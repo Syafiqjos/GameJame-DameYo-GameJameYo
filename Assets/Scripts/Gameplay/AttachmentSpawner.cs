@@ -40,6 +40,8 @@ public class AttachmentSpawner : MonoBehaviour
 
     public void SpawnAttachment(char alphabet)
     {
+        RemoveAttachment(alphabet);
+
         Vector2 pos = new Vector2(GetRandomPosX(), GetRandomPosY());
 
         GameObject ne = Instantiate(attachmentPrefab, pos, Quaternion.identity);
@@ -50,16 +52,31 @@ public class AttachmentSpawner : MonoBehaviour
         attachments.Add(x);
     }
 
+    private void RemoveAttachment(char alphabet)
+    {
+        for (int i = 0;i < attachments.Count; i++)
+        {
+            if (attachments[i].alphabet == alphabet)
+            {
+                attachments.RemoveAt(i);
+                return;
+            }
+        }
+    }
+
     public void TrackController(char alphabet)
     {
         Transform target = null;
 
         foreach (var x in attachments)
         {
-            if (x.alphabet == alphabet)
+            if (x)
             {
-                target = x.transform;
-                break;
+                if (x.alphabet == alphabet)
+                {
+                    target = x.transform;
+                    break;
+                }
             }
         }
 
@@ -70,7 +87,11 @@ public class AttachmentSpawner : MonoBehaviour
 
         if (target)
         {
+            tracker.gameObject.SetActive(true);
             tracker.LookAt(target);
+        } else
+        {
+            tracker.gameObject.SetActive(false);
         }
     }
 }
