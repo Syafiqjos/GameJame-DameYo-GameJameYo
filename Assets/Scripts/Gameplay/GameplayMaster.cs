@@ -20,21 +20,32 @@ public class GameplayMaster : MonoBehaviour
     public AttachmentSpawner attachmentSpawner;
 
     [Header("Words")]
-    public int wordsCount = 0;
+    public int wordsCount = 1;
+
+    [Header("Cursor UI")]
+    public GameObject cursorUI;
 
     [Header("Gameplay UI")]
     public GameObject gameplayUI;
     public Text pointsUI;
+    public Text highscoreUI;
     public Text wordsUI;
+    public Text formedWordUI;
 
     [Header("Pause UI")]
     public GameObject pauseUI;
 
     [Header("Game Over UI")]
     public GameObject gameOverUI;
+    public Text gameOverHighscoreUI;
+    public Text gameOverScoreUI;
 
     public static GameplayMaster Instance { get; private set; }
-    public static bool isGameOver { get; set; } = false;
+    public static bool isGameOver
+    {
+        get; private set;
+    } = false;
+
     public static bool isPaused { get; set; } = false;
     public static bool isPlaying { get { return !isGameOver && !isPaused; } }
 
@@ -46,6 +57,7 @@ public class GameplayMaster : MonoBehaviour
 
         Instance = this;
 
+        scorePoints = 0;
         isGameOver = false;
         isPaused = false;
 
@@ -110,12 +122,14 @@ public class GameplayMaster : MonoBehaviour
 
     private void UpdateGameplayUI()
     {
-        pointsUI.text = scorePoints.ToString();
+        pointsUI.text = "Score : " + scorePoints.ToString();
+        highscoreUI.text = "Highscore : " + ScoreManager.highScore.ToString();
         wordsUI.text = "";
         foreach (var w in words)
         {
             wordsUI.text += w + "\n";
         }
+        formedWordUI.text = GetFormedWord().ToUpper();
     }
 
     public static int CheckWord(string word)
@@ -169,6 +183,31 @@ public class GameplayMaster : MonoBehaviour
 
     private void TrackAlphabet()
     {
-        attachmentSpawner.TrackController(words[0][0]);
+        string formed = GetFormedWord();
+
+        if (formed.Length >= 0 && formed.Length < words[0].Length)
+        {
+            attachmentSpawner.tracker.gameObject.SetActive(true);
+            attachmentSpawner.TrackController(words[0][formed.Length]);
+        } else
+        {
+            attachmentSpawner.tracker.gameObject.SetActive(false);
+        }
+    }
+
+    public static void GameOver()
+    {
+        isGameOver = true;
+        if (Instance)
+        {
+            ScoreManager.CompareHighscore(Instance.scorePoints);
+
+            Instance.cursorUI.SetActive(false);
+            Instance.gameplayUI.SetActive(false);
+            Instance.pauseUI.SetActive(false);
+
+            Instance.gameOverScoreUI.text = "Score : " + Instance.scorePoints.ToString();
+            Instance.gameOverHighscoreUI.text = "Highscore : " + ScoreManager.highScore.ToString();
+        }
     }
 }

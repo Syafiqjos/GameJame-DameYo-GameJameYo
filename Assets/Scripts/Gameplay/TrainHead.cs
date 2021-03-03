@@ -46,7 +46,10 @@ public class TrainHead : MonoBehaviour
 
     private void DetachLastFragment()
     {
-        fragments.RemoveAt(fragments.Count - 1);
+        if (fragments.Count > 0)
+        {
+            fragments.RemoveAt(fragments.Count - 1);
+        }
     }
 
     void MovementController()
@@ -124,15 +127,13 @@ public class TrainHead : MonoBehaviour
 
             if (health == false)
             {
-                GameplayMaster.isGameOver = true;
+                GameplayMaster.GameOver();
                 Debug.Log("Kill Us");
             }
             health = false;
-
-            other.GetComponent<Collider2D>().enabled = false;
         } else if (other.tag == "Obstacle")
         {
-            GameplayMaster.isGameOver = true;
+            GameplayMaster.GameOver();
         }
     }
 
@@ -144,12 +145,10 @@ public class TrainHead : MonoBehaviour
             if (GameplayMaster.CheckWord(formedWord) > 0)
             {
                 //Success
-                for (int i = 0;i < fragments.Count; i++)
+                int n = fragments.Count;
+                for (int i = 0;i < n; i++)
                 {
-                    TrainFragment frag = fragments[fragments.Count - 1];
-                    fragments.RemoveAt(fragments.Count - 1);
-
-                    Destroy(frag.gameObject);
+                    DetachLastFragment();
                 }
             }
         }

@@ -30,6 +30,7 @@ public class TrainAttachment : MonoBehaviour
     public void DestroyAttachment()
     {
         graphic.SetActive(false);
+        GetComponent<Collider2D>().enabled = false;
         particleExplosion.Play();
 
         StartCoroutine(DestroyLate());
